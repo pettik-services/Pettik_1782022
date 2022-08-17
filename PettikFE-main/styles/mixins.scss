@@ -1,0 +1,11 @@
+@mixin fontStyle(
+  $fontFamily: IBM Plex Sans,
+  $fontStyle: normal,
+  $fontWeight: 500,
+  $fontSize: 1.125rem // 128px
+) {
+  font-family: $fontFamily;
+  font-style: $fontStyle;
+  font-weight: $fontWeight;
+  font-size: $fontSize;
+}
