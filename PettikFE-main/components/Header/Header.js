@@ -25,7 +25,7 @@ const Header = () => {
             <Image
               src="/logo/logo.png"
               alt="pettik-logo"
-              height={120}
+              height={130}
               width={130}
             />
           </Link>
