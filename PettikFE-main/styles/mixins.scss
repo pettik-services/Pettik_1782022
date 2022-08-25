@@ -9,3 +9,17 @@
   font-weight: $fontWeight;
   font-size: $fontSize;
 }
+@mixin flexbox(
+  $justify: flex-start,
+  $align: stretch,
+  $flexDirection: row,
+  $wrap: nowrap,
+  $flexBasis: auto
+) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $flexDirection;
+  flex-wrap: $wrap;
+  flex-basis: $flexBasis;
+}

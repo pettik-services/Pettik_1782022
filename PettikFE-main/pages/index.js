@@ -11,6 +11,8 @@ import Grid from "@mui/material/Grid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import Container from "@mui/material/Container";
+import Link from "next/link";
+import * as React from "react";
 
 export default function Home() {
   return (
@@ -40,17 +42,19 @@ export default function Home() {
             </div>
             <div className={styles.petCategoryName}>Home Grooming</div>
           </div>
-          <div className={styles.petCategory}>
-            <div className={styles.petCategoryImage}>
-              <Image
-                src={Consulting}
-                alt="Vet-Consulting-image"
-                height={90}
-                width={90}
-              />
+          <Link href="/vet-consult">
+            <div className={styles.petCategory}>
+              <div className={styles.petCategoryImage}>
+                <Image
+                  src={Consulting}
+                  alt="Vet-Consulting-image"
+                  height={90}
+                  width={90}
+                />
+              </div>
+              <div className={styles.petCategoryName}>Vet Consulting</div>
             </div>
-            <div className={styles.petCategoryName}>Vet Consulting</div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className={styles.carouselContent}>
@@ -115,7 +119,7 @@ export default function Home() {
       <div className={styles.exploreServicesHeading}>Explore Services</div>
       <div className={styles.exploreServicesContainer}>
         <Container maxWidth="md">
-          <Grid container >
+          <Grid container>
             <Grid item xs={6} md={3} lg={3}>
               <div className={styles.exploreServiceslist}>
                 <div>
@@ -141,9 +145,7 @@ export default function Home() {
                     width={150}
                   />
                 </div>
-                <div className={styles.exploreServicesListName}>
-                PET MATING
-                </div>
+                <div className={styles.exploreServicesListName}>PET MATING</div>
               </div>
             </Grid>
             <Grid item xs={6} md={3} lg={3}>
@@ -156,9 +158,7 @@ export default function Home() {
                     width={150}
                   />
                 </div>
-                <div className={styles.exploreServicesListName}>
-                PET HOSTEL
-                </div>
+                <div className={styles.exploreServicesListName}>PET HOSTEL</div>
               </div>
             </Grid>
             <Grid item xs={6} md={3} lg={3}>
@@ -172,7 +172,7 @@ export default function Home() {
                   />
                 </div>
                 <div className={styles.exploreServicesListName}>
-                PET TRAINING
+                  PET TRAINING
                 </div>
               </div>
             </Grid>
@@ -187,7 +187,7 @@ export default function Home() {
                   />
                 </div>
                 <div className={styles.exploreServicesListName}>
-                PET INSURRANCE
+                  PET INSURRANCE
                 </div>
               </div>
             </Grid>
@@ -202,7 +202,7 @@ export default function Home() {
                   />
                 </div>
                 <div className={styles.exploreServicesListName}>
-                PET VACCINATION 
+                  PET VACCINATION
                 </div>
               </div>
             </Grid>
@@ -216,9 +216,7 @@ export default function Home() {
                     width={150}
                   />
                 </div>
-                <div className={styles.exploreServicesListName}>
-                  PET FOOD
-                </div>
+                <div className={styles.exploreServicesListName}>PET FOOD</div>
               </div>
             </Grid>
             <Grid item xs={6} md={3} lg={3}>
@@ -231,36 +229,40 @@ export default function Home() {
                     width={150}
                   />
                 </div>
-                <div className={styles.exploreServicesListName}>
-                PET EVENT
-                </div>
+                <div className={styles.exploreServicesListName}>PET EVENT</div>
               </div>
             </Grid>
           </Grid>
         </Container>
       </div>
       <div className={styles.healhTipsHeading}>Health Tips From Experts</div>
-      
+
       <div className={styles.healhTipsContainer}>
         <div className={styles.healhTipsRow}>
-          <div className={styles.healhTipsRowImgae}>
+          <div className={styles.healhTipsRowImgae}></div>
+          <div className={styles.healhTipsRowSubheading}>
+            <p>
+              Pet Parenting 101: Stage-Wise Guide To Taking Care Of the Pet
+              Mom-To-Be
+            </p>
           </div>
-          <div className={styles.healhTipsRowSubheading}><p>Pet Parenting 101: Stage-Wise Guide To Taking Care Of the Pet Mom-To-Be</p></div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>
         <div className={styles.healhTipsRow}>
-        <div className={styles.healhTipsRowImgae}></div>
-          <div className={styles.healhTipsRowSubheading}><p>How Do You Tell The Difference Between Ticks and Fleas?</p></div>
+          <div className={styles.healhTipsRowImgae}></div>
+          <div className={styles.healhTipsRowSubheading}>
+            <p>How Do You Tell The Difference Between Ticks and Fleas?</p>
+          </div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>
         <div className={styles.healhTipsRow}>
-        <div className={styles.healhTipsRowImgae}></div>
-          <div className={styles.healhTipsRowSubheading}><p>What To Expert From A Tick And Flea Treatment Package?</p></div>
+          <div className={styles.healhTipsRowImgae}></div>
+          <div className={styles.healhTipsRowSubheading}>
+            <p>What To Expert From A Tick And Flea Treatment Package?</p>
+          </div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>
-        </div>
-      
-      
+      </div>
     </div>
   );
 }
