@@ -60,6 +60,7 @@ const Header = () => {
             </ul>
           </div>
           <div className={styles.button}>
+          <Link href="/dashboard">
             <Button className="buttonLocationSignin">
               LOCATION &nbsp;&nbsp;{" "}
               <span>
@@ -68,6 +69,7 @@ const Header = () => {
                 />
               </span>
             </Button>
+            </Link>
             <Button
               className="buttonLocationSignin"
               sx={{ color: "#281ACB", background: "#F9F8F8", fontweight: 700 }}

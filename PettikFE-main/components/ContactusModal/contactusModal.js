@@ -2,10 +2,10 @@ import { Modal } from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import styles from "./contactus.module.scss";
-import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import PhoneInTalkIcon from "../../public/Call.png";
+import MailOutlineIcon from "../../public/Mail.png";
+import HelpOutlineOutlinedIcon from '../../public/Chat With us.png';
+import QuestionAnswerOutlinedIcon from '../../public/FAQ.png';
 
 export const ContactusPopUpModal = ({ contactusModal, setContactusModal }) => {
   return (
@@ -22,7 +22,8 @@ export const ContactusPopUpModal = ({ contactusModal, setContactusModal }) => {
           <div className={styles.contactusPhoneNumberContainer}>
             <div className={styles.contactusPhoneNumber}>
               <div className={styles.contactusPhoneNumberIcon}>
-                <PhoneInTalkIcon sx={{ fontSize: 57 }} />
+                {/* <PhoneInTalkIcon sx={{ fontSize: 57 }} /> */}
+                <Image src={PhoneInTalkIcon} width="90" height="90"/>
               </div>
               <div className={styles.contactusPhoneNumberDetails}>
                 <div className={styles.contactusPhoneNumberDetailsDays}>
@@ -37,7 +38,8 @@ export const ContactusPopUpModal = ({ contactusModal, setContactusModal }) => {
           <div className={styles.contactusEmailContainer}>
           <div className={styles.contactusEmail}>
               <div className={styles.contactusEmailIcon}>
-                <MailOutlineIcon sx={{ fontSize: 57 }} />
+                {/* <MailOutlineIcon sx={{ fontSize: 57 }} /> */}
+                <Image src={MailOutlineIcon} width="35" height="38"/>
               </div>
               <div className={styles.contactusEmailDetails}>
               hello@pettik.com
@@ -45,9 +47,9 @@ export const ContactusPopUpModal = ({ contactusModal, setContactusModal }) => {
             </div>
           </div>
           <div className={styles.contactusChatWithUs}>
-          <div className={styles.contactusChatWithUsIcon}><QuestionAnswerOutlinedIcon sx={{ fontSize: 15 }} /></div>
+          <div className={styles.contactusChatWithUsIcon}><Image src={HelpOutlineOutlinedIcon} width="15" height="15"/></div>
           <div className={styles.contactusChatWithUsContent}>Chat with Us.</div>
-          <div className={styles.contactusChatWithUsQuestionMark}><HelpOutlineOutlinedIcon sx={{ fontSize: 15 }} /></div>
+          <div className={styles.contactusChatWithUsQuestionMark}><Image src={QuestionAnswerOutlinedIcon} width="15" height="15"/></div>
           <div className={styles.contactusChatWithUsFaq}>FAQ.</div>
           </div>
         </div>

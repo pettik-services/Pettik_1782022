@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import Card from "@mui/material/Card";
+import Link from "next/link";
 
 const Dashboard = () => {
   const petList = [
@@ -37,9 +38,11 @@ const Dashboard = () => {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <div className={styles.userProfileContainer}>
+            <Link href="/account-information">
               <div className={styles.editProfile}>
                 <EditIcon />
               </div>
+              </Link>
               <div className={styles.userProfiledetails}>
                 <div className={styles.yourProfile}>Your Profile</div>
                 <div className={styles.yourProfileDetails}>Dinesh Kapri</div>
