@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import Container from "@mui/material/Container";
 import Link from "next/link";
-import * as React from "react";
 
 export default function Home() {
   return (

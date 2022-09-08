@@ -39,7 +39,7 @@ export const ContactusPopUpModal = ({ contactusModal, setContactusModal }) => {
           <div className={styles.contactusEmail}>
               <div className={styles.contactusEmailIcon}>
                 {/* <MailOutlineIcon sx={{ fontSize: 57 }} /> */}
-                <Image src={MailOutlineIcon} width="35" height="38"/>
+                <Image src={MailOutlineIcon}  width="40" height="35" />
               </div>
               <div className={styles.contactusEmailDetails}>
               hello@pettik.com
