@@ -56,7 +56,9 @@ const Header = () => {
               <Link href="/vet-consult">
                 <li>Consult a vet</li>
               </Link>
+              <Link href="/blog">
               <li>Blog</li>
+              </Link>
             </ul>
           </div>
           <div className={styles.button}>
