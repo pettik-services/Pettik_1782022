@@ -57,21 +57,23 @@ const Dashboard = () => {
             <div className={styles.managePetContainer}>
               <div className={styles.managePetContainerHeading}>
                 <div className={styles.ManagePets}>Manage Pets</div>
+                <Link href="/add-newpet">
                 <div className={styles.ManageAddPets}>
                   <div>Add Pets&nbsp;&nbsp;&nbsp;</div> <AddIcon />
                 </div>
+                </Link>
               </div>
               <div className={styles.petDetailsContainer}>
                 <Grid container spacing={2} padding="1rem">
                 { petList.map((data)=>(
-                  <Grid item xs={12} md={6} lg={6} key={data._id}>
+                  <Grid item xs={12} md={4} lg={4} key={data._id}>
                     <Card
-                      sx={{ maxWidth: 350, height: 280, background: "#F5F5F5" }}
+                      sx={{ maxWidth: 350, background: "#F5F5F5" }}
                     >
                       <div className={styles.petDetailsCard}>
                         <div className={styles.petDetailsIconHeading}>
                           <div className={styles.petDetailsIcon}>
-                            <Image src={DogIcon} width="100" height="100" />
+                            <Image src={DogIcon} width="50" height="50" />
                           </div>
                           <div className={styles.petDetailsHeading}>
                             <div className={styles.petDetailsName}>{data.name}</div>
@@ -83,7 +85,7 @@ const Dashboard = () => {
                             </div>
                           </div>
                         </div>
-                        <div className={styles.petDetailsDottedLine}></div>
+                        {/* <div className={styles.petDetailsDottedLine}></div>
                         <div className={styles.petDetailsEditDeleteDate}>
                           <div className={styles.petDetailsEditDelete}>
                             <div className={styles.petDetailsEdit}>Edit</div>
@@ -94,7 +96,7 @@ const Dashboard = () => {
                           <div className={styles.petDetailsDate}>
                             21 - August - 2022
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </Card>
                   </Grid>

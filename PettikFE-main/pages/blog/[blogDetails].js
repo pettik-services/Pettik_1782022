@@ -1,4 +1,4 @@
-import BlogDetails from "../components/Blog/BlogDetails"
+import BlogDetails from "../../components/Blog/BlogDetails"
 
 const blogdetails = () => {
   return (

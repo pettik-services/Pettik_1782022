@@ -1,12 +1,16 @@
 import Image from "next/image";
 import styles from "./BlogDetails.module.scss";
 import BlogBanner from "../../public/carouselimages/banner1.jpg";
+import { useRouter } from "next/router";
 
 const BlogDetails = () => {
+  const router = useRouter();
+  const petId = router.query.blogDetails;
   return (
     <div>
+    <h1>blog details {petId}</h1>
       <div className={styles.blogDetailsContainer}>
-        <div className={styles.blogDetailsHeading}>
+         <div className={styles.blogDetailsHeading}>
           The Do’s And Don'ts Of Grooming Your Dog At Home
         </div>
         <div className={styles.blogDetailsBanner}>
@@ -29,7 +33,8 @@ is there anyone who loves or pursues or desires to obtain pain of itself, becaus
 can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? 
 
         </div>
-      </div>
+       
+      </div> 
     </div>
   );
 };

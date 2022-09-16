@@ -1,7 +1,7 @@
 import styles from "./HomeGrooming.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "next/image";
-import { useState } from "react";
+import  { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Carousel from "react-bootstrap/Carousel";
 import QualityPetCare from "../../public/groomingImages/Pettik at home banner.jpg"
@@ -26,6 +26,7 @@ import ExploreImagesOne from "../../public/groomingImages/essential package.jpg"
 import ExploreImagesTwo from "../../public/groomingImages/all in one.jpg";
 import ExploreImagesThree from "../../public/groomingImages/tick & flea control.jpg";
 import ExploreImagesFour from "../../public/groomingImages/customised pack.jpg";
+import axios from "axios";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -59,45 +60,68 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 );
 
 const HomeGrooming = () => {
-  const ExploreImagesOneObj = {
-    packName: "Essential Package",
-    img: ExploreImagesOne,
-    price: "1,249",
-    time: "75",
-    include: ["Bath And Blow Dry","Cleaning Package"],
-    description:
-      "Upon assessing your dog’s skin & coat our groomers use suitable products, ensuring that it leaves with a clean coat & ears, and trimmed paws",
-  };
-  const ExploreImagesTwoObj = {
-    packName: "All in one Pack",
-    img: ExploreImagesTwo,
-    price: "2,099",
-    time: "135",
-    include: ["Bath And Blow Dry","Hair Cut","Cleaning Package","Face and Feet Trim"],
-    description:
-    "In addition to the basic grooming our professional groomers trim and style your fur buddy’s hair to keep it camera ready, always!",
 
-  };
-  const ExploreImagesThreeObj = {
-    packName: "Ticks and Flea Control",
-    img: ExploreImagesThree,
-    price: "1,349",
-    time: "60",
-    include: ["Bath And Blow Dry","Anti Tick Treatment"],
-    description:
-    "Our groomers thoroughly check your pooch’s coat, removing the ticks/fleas manually and end the session with a medicated bath !!",
+  const [GroomingData, setGroomingData] = useState([])
+ 
+  // const ImageData = [ExploreImagesOne,ExploreImagesTwo,ExploreImagesThree, ExploreImagesFour]
 
-  };
-  const ExploreImagesFourObj = {
-    packName: "Customized Pack",
-    img: ExploreImagesFour,
-    price: "1,249",
-    time: "--",
-    include: ["Bath And Blow Dry","Dematt","Cleaning Package","Puppy Pack","Haircut","Winter Spa","Face and Feet Trim"],
-    description:
-    "Have some special requirements for your pooch? Choose the services you want our Groomers to offer !! ",
+  const GroomingApiCall = async() => {
+    try{
+      const groomingBackend = "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/services/grooming";
+      const data = await axios.get(groomingBackend);
+      console.log(data.data.services)
+      setGroomingData(data.data.services);
+    
+    }
+    catch (e){
+      console.log(e)
+    }
+    
+  }
+  useEffect(() => {
+    GroomingApiCall();
+  }, []);
+  // const ExploreImagesOneObj = {
+  //   packName: "Essential Package",
+  //   img: ExploreImagesOne,
+  //   price: "1,249",
+  //   time: "75",
+  //   include: ["Bath And Blow Dry","Cleaning Package"],
+  //   description:
+  //     "Upon assessing your dog’s skin & coat our groomers use suitable products, ensuring that it leaves with a clean coat & ears, and trimmed paws",
+  // };
+  // const ExploreImagesTwoObj = {
+  //   packName: "All in one Pack",
+  //   img: ExploreImagesTwo,
+  //   price: "2,099",
+  //   time: "135",
+  //   include: ["Bath And Blow Dry","Hair Cut","Cleaning Package","Face and Feet Trim"],
+  //   description:
+  //   "In addition to the basic grooming our professional groomers trim and style your fur buddy’s hair to keep it camera ready, always!",
 
-  };
+  // };
+  // const ExploreImagesThreeObj = {
+  //   packName: "Ticks and Flea Control",
+  //   img: ExploreImagesThree,
+  //   price: "1,349",
+  //   time: "60",
+  //   include: ["Bath And Blow Dry","Anti Tick Treatment"],
+  //   description:
+  //   "Our groomers thoroughly check your pooch’s coat, removing the ticks/fleas manually and end the session with a medicated bath !!",
+
+  // };
+  // const ExploreImagesFourObj = {
+  //   packName: "Customized Pack",
+  //   img: ExploreImagesFour,
+  //   price: "1,249",
+  //   time: "--",
+  //   include: ["Bath And Blow Dry","Dematt","Cleaning Package","Puppy Pack","Haircut","Winter Spa","Face and Feet Trim"],
+  //   description:
+  //   "Have some special requirements for your pooch? Choose the services you want our Groomers to offer !! ",
+
+  // };
+
+
   const [value, setValue] = useState("1");
 
   const handleChange = (event, newValue) => {
@@ -234,18 +258,18 @@ const HomeGrooming = () => {
                   />
                 </StyledTabs>
               </Box>
-              <TabPanel value="1">
-                <ExploreOurPack data={ExploreImagesOneObj} />
+                <TabPanel value="1">
+                   <ExploreOurPack data={1}  item ={GroomingData[0]}/>
               </TabPanel>
-              <TabPanel value="2">
-                <ExploreOurPack data={ExploreImagesTwoObj} />
+               <TabPanel value="2">
+                <ExploreOurPack data={2}  item ={GroomingData[1]} />
               </TabPanel>
               <TabPanel value="3">
-                <ExploreOurPack data={ExploreImagesThreeObj} />
+                <ExploreOurPack data={3}  item ={GroomingData[2]} />
               </TabPanel>
               <TabPanel value="4">
-                <ExploreOurPack data={ExploreImagesFourObj} />
-              </TabPanel>
+                <ExploreOurPack data={4}  item ={GroomingData[3]} />
+              </TabPanel> 
             </TabContext>
           </Box>
           <div className={styles.bookAppoinmentExplore}>
