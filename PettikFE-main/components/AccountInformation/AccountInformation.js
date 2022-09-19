@@ -2,20 +2,78 @@ import styles from "./AccountInformation.module.scss";
 import Image from "next/image";
 import AccountInfoImage from "../../public/PAW BACKGROUND.jpg";
 import axios from "axios";
-import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
+import { useSnackbar } from "notistack";
 
-const AccountInformation = () => {
-  // const { enqueueSnackbar } = useSnackbar();
+
+
+const AccountInformation = ({userData,setIsEditProfile}) => {
+ 
+  const { enqueueSnackbar } = useSnackbar();
   const [formData, setFormData] = useState({
-    username: "",
-    phoneNumber: "",
-    email: "",
+    username: userData?.name,
+    email: userData?.email,
+    phoneNumber: userData?.phoneNumber,
   });
+ 
 
+  const [loading, setLoding] = useState(false);
   const handelInput = (e) => {
     const [key, value] = [e.target.name, e.target.value];
     setFormData((prevValue) => ({ ...prevValue, [key]: value }));
+  };
+
+  const register = async (formData) => {
+    if (!validateInput(formData)) return;
+
+setIsEditProfile(false);
+const data = {
+  "username": formData.username,
+    "email": formData.email,
+};
+    try {
+      setLoding(true);
+      await axios.post('https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/store',{
+        body : JSON.stringify(data),
+          headers: { 
+            'Content-Type': 'application/json'
+           },
+      }).then((response)=>console.log(response));
+      // let data = JSON.stringify({
+      //   "username": formData.username,
+      //   "email": formData.email,
+      // });
+      
+      // var config = {
+      //   method: 'post',
+      //   url: 'https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/store',
+      //   headers: { 
+      //     'Content-Type': 'application/json',
+      //     'Access-Control-Allow-Origin' : 'http://localhost:3000'
+      //   },
+      //     data : data
+       
+      // };
+      // console.log(config,"cofigdata");
+      //  await axios(config)
+      // .then(function (response) {
+      //   console.log(JSON.stringify(response.data,"hey"));
+      // })
+      setLoding(false);
+      enqueueSnackbar("Submited Successfully", { variant: "success" });
+     
+    } catch (e) {
+      setLoding(false);
+      if (e.response && e.response.status === 400) {
+        enqueueSnackbar(e.response.data.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Somthing went wrong. Server error ...", {
+          variant: "error",
+        });
+      }
+    }
   };
 
   const validateInput = (data) => {
@@ -29,16 +87,16 @@ const AccountInformation = () => {
       });
       return false;
     }
-    if (!data.phoneNumber) {
-      enqueueSnackbar("Phone Number is a required field", { variant: "error" });
-      return false;
-    }
-    if (data.phoneNumber.length < 10) {
-      enqueueSnackbar("Phone Number must be at least 10 numbers", {
-        variant: "error",
-      });
-      return false;
-    }
+    // if (!data.phoneNumber) {
+    //   enqueueSnackbar("Phone Number is a required field", { variant: "error" });
+    //   return false;
+    // }
+    // if (data.phoneNumber.length < 10) {
+    //   enqueueSnackbar("Phone Number must be at least 10 numbers", {
+    //     variant: "error",
+    //   });
+    //   return false;
+    // }
     if (!data.email) {
       enqueueSnackbar("Email is a required field", { variant: "error" });
       return false;
@@ -57,34 +115,41 @@ const AccountInformation = () => {
             ACCOUNT INFORMATION
           </div>
           <input
-            id="username"
+            name="username"
             type="text"
             placeholder="Username"
-           
             value={formData.username}
             onChange={handelInput}
-            name="username"
           />
           <input
-            id="phoneNumber"
+            name="phoneNumber"
             type="text"
             placeholder="Phone number"
-            
+            disabled="disabled"
             value={"9971161976"}
             onChange={handelInput}
-            name="phoneNumber"
+            className={styles.disabledBtn}
           />
           <input
-            type="gmail"
+            type="email"
             name="email"
-           
             placeholder="Enter your email"
             value={formData.email}
             onChange={handelInput}
           />
-          <button type="submit" className={styles.accountInformationSaveButton} onClick={()=>register(formData)}>
-            SAVE
-          </button>
+          {loading ? (
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <button
+              type="submit"
+              className={styles.accountInformationSaveButton}
+              onClick={() => register(formData)}
+            >
+              SAVE
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -28,34 +28,37 @@
             border-radius: 10px;
             color: #582727;
             font-family: 'IBM Plex Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+        }
+        .disabledBtn{
+            background-color: grey;
         }
 
         .accountInformationBoxHeading {
             margin-bottom: 1rem;
             color: #000000;
             font-family: 'IBM Plex Sans';
-font-style: normal;
-font-weight: 700;
-font-size: 20px;
-line-height: 36px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 36px;
         }
-        .accountInformationSaveButton{
+
+        .accountInformationSaveButton {
             background: #A044FF;
             width: 75%;
-border-radius: 10px;
-color: #FFFFFF;
-border: none;
-padding: 10px 20px;
-font-family: 'IBM Plex Sans';
-font-style: normal;
-font-weight: 400;
-letter-spacing: 1px;
-font-size: 20px;
-
+            border-radius: 10px;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'IBM Plex Sans';
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-size: 20px;
+            cursor: pointer;
         }
     }
 }
