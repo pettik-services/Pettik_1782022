@@ -30,25 +30,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/blog": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/blog.js"
-    ],
     "/home-grooming": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/home-grooming.js"
-    ],
-    "/pet-vaccination": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/pet-vaccination.js"
-    ],
-    "/vet-consult": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/vet-consult.js"
     ]
   },
   "ampFirstPages": []
