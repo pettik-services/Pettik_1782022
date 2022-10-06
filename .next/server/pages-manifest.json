@@ -1,0 +1,9 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/pet-vaccination": "pages/pet-vaccination.js",
+  "/home-grooming": "pages/home-grooming.js",
+  "/vet-consult": "pages/vet-consult.js",
+  "/blog": "pages/blog.js"
+}

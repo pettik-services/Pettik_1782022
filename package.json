@@ -11,8 +11,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.8.4",
+    "@mui/icons-material": "^5.10.6",
     "@mui/lab": "^5.0.0-alpha.97",
+    "@mui/material": "^5.10.8",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "cors": "^2.8.5",
@@ -26,7 +27,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.36.0",
     "react-router-dom": "^6.4.0",
-    "sass": "^1.54.0"
+    "sass": "^1.54.0",
+    "sharp": "^0.31.1"
   },
   "devDependencies": {
     "eslint": "8.21.0",
