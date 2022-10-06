@@ -8,45 +8,58 @@ import Card from "@mui/material/Card";
 import Link from "next/link";
 import {useState,useEffect} from "react";
 import AccountInformation from "../AccountInformation/AccountInformation";
+import { useRouter } from 'next/router';
+import axios from "axios";
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
 
 const Dashboard = () => {
-  const petList = [
-    {
-      name: "Mishi",
-      category: "Shitz Tzu",
-      age: "0 Years and 11 Month",
-      image: "https://cdn-icons-png.flaticon.com/512/620/620851.png",
-      _id: "v4sLtEcMpzabRyfx",
-    },
-    {
-      name: "Nishi",
-      category: "Phitz Pzu",
-      age: "1 Years and 1 Month",
-      image: "https://cdn-icons-png.flaticon.com/512/620/620851.png",
-      _id: "v5sLtEcMpzabRyfy",
-    },
-    {
-      name: "lishi",
-      category: "Phitz Pzu",
-      age: "1 Years and 1 Month",
-      image: "https://cdn-icons-png.flaticon.com/512/620/620851.png",
-      _id: "v6sLtEcMpzabRyfz",
-    },
-  ];
+  let phoneValue;
+  if (typeof window !== "undefined"){
+     phoneValue = localStorage.getItem("phoneNumber") ?? "-";
+     console.log("phonevalhelloe",phoneValue);
+  }
+ 
   const [userData, setUserData] = useState({});
   const [isEditProfile, setIsEditProfile] = useState(false);
+  const[petData, setPetData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [userExist, setUserExist] = useState(false);
+  const router = useRouter();
+
+  const fetchUserData =async ()=>{
+    const token =localStorage.getItem("token");
+ var userUrl = {
+      method: "get",
+      url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/check",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try{
+      setLoading(true);
+      const userData = await axios(userUrl);
+      setUserData(userData.data.userData.user_details);
+      setPetData(userData.data.userData.pet_details)
+      setLoading(false);
+    }
+    catch (e){
+      console.log(e)
+    }
+  }
   useEffect(() => {
-    // api cal to fetch user data
-    // fetchUserData()
-    setUserData({
-      name: "Dinesh Kapri",
-      email: "kapridinesh99@gmail.com",
-      phoneNumber: "9971161976",
-    });
+     fetchUserData()
+    if(!localStorage.getItem("token")){
+      setUserExist(false);
+      router.push("/")
+    } 
+    else{
+      setUserExist(true);
+    }
   }, []);
   return (
     <>
-   {!isEditProfile?<div>
+    {userExist ?<>{!isEditProfile?<div>
     <div className={styles.dashboardContainer}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
@@ -61,7 +74,7 @@ const Dashboard = () => {
             <div className={styles.userProfiledetails}>
               <div className={styles.yourProfile}>Your Profile</div>
               <div className={styles.yourProfileDetails}>{userData?.name}</div>
-              <div className={styles.yourProfileDetails}>+91 {userData?.phoneNumber}</div>
+              <div className={styles.yourProfileDetails}>+91 {phoneValue}</div>
               <div className={styles.yourProfileDetails}>{userData?.email}</div>
             </div>
           </div>
@@ -77,9 +90,17 @@ const Dashboard = () => {
               </Link>
             </div>
             <div className={styles.petDetailsContainer}>
-              <Grid container spacing={2} padding="1rem">
-                {petList.map((data) => (
-                  <Grid item xs={12} md={4} lg={4} key={data._id}>
+            {
+              loading ? (
+            <Box className="loading">
+              <CircularProgress />
+              <h4>Loading Products...</h4>
+            </Box>
+          ) : (
+            <Grid container spacing={2} padding="1rem">
+               {petData.length ? <>
+                {petData?.map((data) => (
+                  <Grid item xs={12} md={4} lg={4} key={data.pet_unique_id}>
                     <Card sx={{ maxWidth: 350, background: "#F5F5F5" }}>
                       <div className={styles.petDetailsCard}>
                         <div className={styles.petDetailsIconHeading}>
@@ -91,13 +112,13 @@ const Dashboard = () => {
                               {data.name}
                             </div>
                             <div className={styles.petDetailsTypeAge}>
-                              Shitz Tzu
+                            {data.breed}
                             </div>
                             <div className={styles.petDetailsTypeAge}>
-                              0 Years and 11 Months
+                            {data.dob} 
                             </div>
                           </div>
-                        </div>
+                        </div> 
                         {/* <div className={styles.petDetailsDottedLine}></div>
                       <div className={styles.petDetailsEditDeleteDate}>
                         <div className={styles.petDetailsEditDelete}>
@@ -110,17 +131,25 @@ const Dashboard = () => {
                           21 - August - 2022
                         </div>
                       </div> */}
-                      </div>
+                       </div>
                     </Card>
                   </Grid>
-                ))}
-              </Grid>
+                ))}</> : ( <Box className="loading">
+                    
+                    <h4>You have not added any pets</h4>
+                  </Box>)
+               }
+              </Grid> 
+          ) 
+          
+            }
             </div>
           </div>
         </Grid>
       </Grid>
     </div>
-  </div>:(<AccountInformation userData={userData} setIsEditProfile={setIsEditProfile}/>)}
+  </div>:(<AccountInformation userData={userData} setIsEditProfile={setIsEditProfile}/>)}</> : <center><CircularProgress /></center>}
+   
   </>
   );
 };

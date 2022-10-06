@@ -22,7 +22,7 @@ const ExploreOurPack = (item) => {
             />
           </div>
             <div className={styles.exploreContent}>
-            <p className={styles.priceNote}>*Prices may varies as per breed</p>
+            <div className={styles.priceNote}>*Prices may varies as per breed</div>
             <div className={styles.titlePlan}>
               <div className={styles.title}> {data?.name}</div>
               <div className={styles.priceContent}>
@@ -34,13 +34,13 @@ const ExploreOurPack = (item) => {
             </div>
             <div className={styles.text}>
               <span className={styles.d_color}>What's Included</span>
-              {data?.included.map(e =><p>{e}</p>)}
+              {data?.included.map(e =><div>{e}</div>)}
             </div>
             <div className={styles.planDescription}>
               <div className={styles.planDescriptionContent}>
-                <p>
+                <div>
                  paragraph
-                </p>
+                </div>
               </div>
             </div>
           </div>  

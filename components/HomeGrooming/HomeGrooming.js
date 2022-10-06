@@ -160,10 +160,10 @@ const HomeGrooming = () => {
           />
           <div className={styles.groomingImageText}>
             <h3>Breed Specific Haircut</h3>
-            <p>
+            <div>
               Pettik's experienced groomers suggest <br></br>speciality trims
               for each breed.
-            </p>
+            </div>
           </div>
         </div>
         <div className={styles.groomingExperts}>
@@ -175,10 +175,10 @@ const HomeGrooming = () => {
           />
           <div className={styles.groomingImageText}>
             <h3>Grooming Experts</h3>
-            <p>
+            <div>
               Pettik certified and trained groomers <br></br>for your little
               companions.
-            </p>
+            </div>
           </div>
         </div>
         <div className={styles.qualityProducts}>
@@ -190,10 +190,10 @@ const HomeGrooming = () => {
           />
           <div className={styles.groomingImageText}>
             <h3>Quality Products</h3>
-            <p>
+            <div>
               A wide variety of tested <br></br>products to ensure the best
               care.
-            </p>
+            </div>
           </div>
         </div>
         <div className={styles.modernSaloon}>
@@ -205,9 +205,9 @@ const HomeGrooming = () => {
           />
           <div className={styles.groomingImageText}>
             <h3>High Convenience</h3>
-            <p>
+            <div>
               Curate a package of the<br></br>services you need for your pet.
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -302,12 +302,12 @@ const HomeGrooming = () => {
             />
             <div className={styles.groomingImageText}>
               <h3>Certified Groomers, At Your Service</h3>
-              <p>
+              <div>
                 When the question is of your pet's upkeep our certified,{" "}
                 <br></br>pet-loving groomers ensure that your <br></br>pet
                 enjoys the best-in-className services at the comfort of its
                 home.
-              </p>
+              </div>
             </div>
           </div>
           <div className={styles.homeItem}>
@@ -320,11 +320,11 @@ const HomeGrooming = () => {
             />
             <div className={styles.groomingImageText}>
               <h3>Happy Pets, Happy Parents</h3>
-              <p>
+              <div>
                 Our high quality services address your <br></br>pets' needs with
                 the ultimate perfection! <br></br>Every grooming session will
                 help them be their best, happy selves.
-              </p>
+              </div>
             </div>
           </div>
         </div>

@@ -2,22 +2,38 @@ import styles from "./AccountInformation.module.scss";
 import Image from "next/image";
 import AccountInfoImage from "../../public/PAW BACKGROUND.jpg";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { useSnackbar } from "notistack";
-
+import { useRouter } from 'next/router';
 
 
 const AccountInformation = ({userData,setIsEditProfile}) => {
  
+  let phoneValue;
+  if (typeof window !== "undefined"){
+     phoneValue = localStorage.getItem("phoneNumber") ?? "-";
+     console.log("phonevalhelloe",phoneValue);
+  }
+  const router = useRouter();
+  const [userExist, setUserExist] = useState(false);
+ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const { enqueueSnackbar } = useSnackbar();
   const [formData, setFormData] = useState({
-    username: userData?.name,
+    name: userData?.name,
     email: userData?.email,
-    phoneNumber: userData?.phoneNumber,
   });
  
+useEffect(()=>{
+  if(!localStorage.getItem("token")){
+    setUserExist(false);
+    router.push("/");
+  }
+  else{
+    setUserExist(true);
+  }
+},[]);
 
   const [loading, setLoding] = useState(false);
   const handelInput = (e) => {
@@ -29,38 +45,30 @@ const AccountInformation = ({userData,setIsEditProfile}) => {
     if (!validateInput(formData)) return;
 
 setIsEditProfile(false);
-const data = {
-  "username": formData.username,
-    "email": formData.email,
-};
+const token = localStorage.getItem("token");
     try {
+      var data = JSON.stringify({
+        "name": formData.name,
+        "email" : formData.email,
+        
+      });
+      var config = {
+        method: "post",
+        url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/store",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: data,
+      };
       setLoding(true);
-      await axios.post('https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/store',{
-        body : JSON.stringify(data),
-          headers: { 
-            'Content-Type': 'application/json'
-           },
-      }).then((response)=>console.log(response));
-      // let data = JSON.stringify({
-      //   "username": formData.username,
-      //   "email": formData.email,
-      // });
-      
-      // var config = {
-      //   method: 'post',
-      //   url: 'https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/store',
-      //   headers: { 
-      //     'Content-Type': 'application/json',
-      //     'Access-Control-Allow-Origin' : 'http://localhost:3000'
-      //   },
-      //     data : data
+      axios(config)
+      .then(function (response) {
        
-      // };
-      // console.log(config,"cofigdata");
-      //  await axios(config)
-      // .then(function (response) {
-      //   console.log(JSON.stringify(response.data,"hey"));
-      // })
+      })
+      .catch(function () {
+        console.log("Error while sending user details");
+      });
       setLoding(false);
       enqueueSnackbar("Submited Successfully", { variant: "success" });
      
@@ -77,28 +85,23 @@ const data = {
   };
 
   const validateInput = (data) => {
-    if (!data.username) {
+    if (!data.name) {
       enqueueSnackbar("Username is a required field", { variant: "error" });
       return false;
     }
-    if (data.username.length < 3) {
+    if (data.name.length < 3) {
       enqueueSnackbar("Username must be at least 3 characters", {
         variant: "error",
       });
       return false;
     }
-    // if (!data.phoneNumber) {
-    //   enqueueSnackbar("Phone Number is a required field", { variant: "error" });
-    //   return false;
-    // }
-    // if (data.phoneNumber.length < 10) {
-    //   enqueueSnackbar("Phone Number must be at least 10 numbers", {
-    //     variant: "error",
-    //   });
-    //   return false;
-    // }
+   
     if (!data.email) {
       enqueueSnackbar("Email is a required field", { variant: "error" });
+      return false;
+    }
+    if (!emailRegex.test(data.email)) {
+      enqueueSnackbar("Enter a valid email id.. ", { variant: "error" });
       return false;
     }
 
@@ -106,7 +109,9 @@ const data = {
   };
   return (
     <div>
-      <div className={styles.accountInformationContainer}>
+    {userExist ?
+    <> 
+    <div className={styles.accountInformationContainer}>
         <div className={styles.accountInformationBackgroundImage}>
           <Image src={AccountInfoImage} alt="banner" layout="responsive" />
         </div>
@@ -115,19 +120,20 @@ const data = {
             ACCOUNT INFORMATION
           </div>
           <input
-            name="username"
+            name="name"
             type="text"
             placeholder="Username"
-            value={formData.username}
+            value={formData.name}
             onChange={handelInput}
           />
+           
           <input
             name="phoneNumber"
             type="text"
             placeholder="Phone number"
             disabled="disabled"
-            value={"9971161976"}
-            onChange={handelInput}
+            value={phoneValue}
+          
             className={styles.disabledBtn}
           />
           <input
@@ -152,6 +158,9 @@ const data = {
           )}
         </div>
       </div>
+      </> : 
+      <center><CircularProgress /></center>}
+     
     </div>
   );
 };

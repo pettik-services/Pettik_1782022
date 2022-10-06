@@ -5,47 +5,99 @@ import styles from "./loginModal.module.scss";
 import LoginImage from "../../public/loginModalImage.jpeg";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useSnackbar } from "notistack";
+import { useRouter } from 'next/router';
+import Dashboard from "../Dashboard/Dashboard";
+
 
 export const LoginPopUpModal = ({ loginModal, setLoginModal }) => {
+
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const [mobileNumber, setMobileNumber] = React.useState();
   const [isvalidMobileNumber, setIsvalidMobileNumber] = React.useState(false);
   const [isOtpAvailable, setIsOtpAvailable] = React.useState(false);
   const [phone, setPhone] = React.useState();
   const mobileNumberRegex = /^[6-9]\d{9}$/;
   const [step, setStep] = React.useState(1);
-  
-
+  const [phoneValue, setPhoneValue] = useState(true);
   const [otp1, setOtp1] = useState();
   const [otp2, setOtp2] = useState();
   const [otp3, setOtp3] = useState();
   const [otp4, setOtp4] = useState();
-  const [otpValue, setOtpValue] = useState();
-
-  const handleOtpSubmit =()=>{
-    const combinedOtp = (otp1+otp2+otp3+otp4).toString();
+  
+console.log("phonenumber",phone)
+  const handleOtpSubmit = async () => {
+    const combinedOtp = (otp1 + otp2 + otp3 + otp4).toString();
+   
+    var otpData = JSON.stringify({
+      phone: phone,
+      otp: combinedOtp,
+    });
+    var otpConfig = {
+      method: "post",
+      url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/verify",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: otpData,
+    };
+    try {
+      const response = await axios(otpConfig);
+      enqueueSnackbar(" OTP Verified Successfully", { variant: "success" });
+        setLoginModal(false);
+       
+        checkUser(response.data.token);
+    }
+    catch(e){
+      if (e.response && e.response.status === 400)
+      {
+        enqueueSnackbar("Enter a valid Otp .", { variant: "error" });
+      }
+    }
+     
+  };
+  const checkUser = async (token) =>{
+    localStorage.setItem("token", token);
+    localStorage.setItem("phoneNumber", phone);
+    var checkUrl = {
+      method: "get",
+      url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/user/details/check",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try{
+      const userExist = await axios(checkUrl);
+      if(userExist.data.isExistingUser === false)
+      {
+        router.push('/account-information')
+      }
+      else{
+        router.push('/')
+      }
+    }
+    catch (e){
+      console.log(e)
+    }
   }
-   const inputfocus = (elmnt) => {
+  const inputfocus = (elmnt) => {
     if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
       const next = elmnt.target.tabIndex - 2;
       if (next > -1) {
-
-        elmnt.target.form.elements[next].focus()
+        elmnt.target.form.elements[next].focus();
+      }
+    } else {
+      const next = elmnt.target.tabIndex;
+      if (next < 4) {
+        elmnt.target.form.elements[next].focus();
       }
     }
-    else {
-      console.log("next");
-     
-        const next = elmnt.target.tabIndex;
-        if (next < 4) {
-          elmnt.target.form.elements[next].focus()
-        }
-    }
-
-  }
-  const handleChange = (set,e) => {
-    set(e.target.value)
-  }
+  };
+  const handleChange = (set, e) => {
+    set(e.target.value);
+  };
 
   const handleMobileNumberInput = (e) => {
     setMobileNumber(e.target.value);
@@ -59,64 +111,34 @@ export const LoginPopUpModal = ({ loginModal, setLoginModal }) => {
 
   const loginApi = async () => {
     setStep(2);
-var data = JSON.stringify({
-  "phone": "9971161976"
-});
+    var data = JSON.stringify({
+      phone: phone,
+    });
+    var config = {
+      method: "post",
+      url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/generate",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
 
-var config = {
-  method: 'post',
-  url: 'https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/generate',
-  headers: { 
-    'Content-Type': 'application/json',
-  },
-  data : data,
-  mode : 'cors'
-};
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-//     let payload = {
-//       "phone":phone,
-//     };
-// console.log(JSON.stringify(payload),"hey");
-// console.log(phone,"hey");
-//     await axios({
-//       url: "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/generate",
-//       method: "POST",
-//       data: JSON.stringify(payload),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-      // await axios
-      //   .post(
-      //     "https://6u26pb8q2e.execute-api.us-east-1.amazonaws.com/generate",
-      //     { phone },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   )
-      // .then(function (resp) {
-      //   console.log(resp);
-      // })
-      // .catch(() => {
-      //   console.log("Error while sending otp");
-      // });
+    axios(config)
+      .then(function (response) {
+      })
+      .catch(function () {
+        console.log("Error while sending otp");
+      });
+
+ 
   };
   useEffect(() => {
-    if(otp1 && otp2 && otp3&&otp4){
+    if (otp1 && otp2 && otp3 && otp4) {
       setIsOtpAvailable(true);
-    }
-    else{
+    } else {
       setIsOtpAvailable(false);
     }
-  },[otp1,otp2,otp3,otp4])
+  }, [otp1, otp2, otp3, otp4]);
 
   return (
     <>
@@ -179,58 +201,77 @@ axios(config)
         ) : (
           <div className={styles.loginOtpContainer}>
             <div className={styles.otpHelpText}>Enter OTP</div>
-            <form >
+            <form>
               <div className={styles.otpContainer}>
                 <input
                   name="otp1"
-                  type="text"
+                  type="password"
                   autoComplete="off"
                   className={styles.otpInput}
                   value={otp1}
-                  // onKeyPress={(e)=>{console.log(e)}}
-                  onChange={e => handleChange(setOtp1, e)}
-                  tabIndex="1" maxLength="1" onKeyUp={(e) => inputfocus(e)}
+                  onChange={(e) => handleChange(setOtp1, e)}
+                  tabIndex="1"
+                  maxLength="1"
+                  onKeyUp={(e) => inputfocus(e)}
                 />
                 <input
                   name="otp2"
-                  type="text"
+                  type="password"
                   autoComplete="off"
                   className={styles.otpInput}
                   value={otp2}
-                  onChange={e => handleChange(setOtp2, e)}
-                  tabIndex="2" maxLength="1" onKeyUp={e => inputfocus(e)}
+                  onChange={(e) => handleChange(setOtp2, e)}
+                  tabIndex="2"
+                  maxLength="1"
+                  onKeyUp={(e) => inputfocus(e)}
                 />
                 <input
                   name="otp3"
-                  type="text"
+                  type="password"
                   autoComplete="off"
                   className={styles.otpInput}
                   value={otp3}
-                  onChange={e => handleChange(setOtp3, e)}
-                  tabIndex="3" maxLength="1" onKeyUp={e => inputfocus(e)}
+                  onChange={(e) => handleChange(setOtp3, e)}
+                  tabIndex="3"
+                  maxLength="1"
+                  onKeyUp={(e) => inputfocus(e)}
                 />
                 <input
                   name="otp4"
-                  type="text"
+                  type="password"
                   autoComplete="off"
                   className={styles.otpInput}
                   value={otp4}
-                  onChange={e => handleChange(setOtp4, e)}
-                  tabIndex="4" maxLength="1" onKeyUp={e => inputfocus(e)}
+                  onChange={(e) => handleChange(setOtp4, e)}
+                  tabIndex="4"
+                  maxLength="1"
+                  onKeyUp={(e) => inputfocus(e)}
                 />
               </div>
-              <div className={styles.verificationText}>A Verification code has been send via SMS to</div>
-              <div className={styles.verificationPhnNumber}>+91&nbsp;{phone}</div>
-              <div className={isOtpAvailable?styles.primary:styles.inActive} type="submit" onClick={()=>{
-                isOtpAvailable && handleOtpSubmit()
-              }}>
-         CONTINUE
-        </div>
-        <div className={styles.resendOtp}>Did not recieve the OTP? &nbsp;<span className={styles.underline}>Resend the OTP</span></div>
+              <div className={styles.verificationText}>
+                A Verification code has been send via SMS to
+              </div>
+              <div className={styles.verificationPhnNumber}>
+                +91&nbsp;{phone}
+              </div>
+              <div
+                className={isOtpAvailable ? styles.primary : styles.inActive}
+                type="submit"
+                onClick={() => {
+                  isOtpAvailable && handleOtpSubmit();
+                }}
+              >
+                CONTINUE
+              </div>
+              <div className={styles.resendOtp}>
+                Did not recieve the OTP? &nbsp;
+                <span className={styles.underline}>Resend the OTP</span>
+              </div>
             </form>
           </div>
         )}
       </Modal>
+      
     </>
   );
 };

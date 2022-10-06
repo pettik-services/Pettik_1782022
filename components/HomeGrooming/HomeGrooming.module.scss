@@ -326,7 +326,7 @@
     padding: 15px 0;
     color: #a8a69f;
                 }
-                p{
+                div{
                     padding-left: 28px;
                     color:#052a50;
     font-size: 16px;
@@ -335,20 +335,21 @@
     display: flex;
     align-items: center;
                 }
-                p::before{
+                div::before{
                     width: 17px;
                     height: 17px;
                     background: url("../../public/groomingImages/Landing_check_icon.png") no-repeat center;
                     background-size: contain;
     content: '';
-    left: 0;
+    left: 0px;
+    
     position: absolute;
 
                 }
             }
             .planDescription{
                 .planDescriptionContent{
-                    p{
+                    div{
                         font-size: 16px;
                         color: #052a50;
     margin-top: 20px;
@@ -356,14 +357,15 @@
     position: relative;
    
                     }
-                    p::before{
+                    div::before{
                         content: '';
                         background: url("../../public/groomingImages/quote-left-solid.svg") no-repeat center;
     position: absolute;
     width: 35px;
     height: 40px;
     top: 0;
-    left: 0;
+    left: 0px;
+
     background-size: contain;
     filter: opacity(.2);
                     }

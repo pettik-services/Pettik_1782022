@@ -8,7 +8,6 @@ const BlogDetails = () => {
   const petId = router.query.blogDetails;
   return (
     <div>
-    <h1>blog details {petId}</h1>
       <div className={styles.blogDetailsContainer}>
          <div className={styles.blogDetailsHeading}>
           The Do’s And Don'ts Of Grooming Your Dog At Home

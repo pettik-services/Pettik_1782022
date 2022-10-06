@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div>
       <div className={styles.categoryContent}>
-        <div className={styles.petCategoryListRow}>
+        {/* <div className={styles.petCategoryListRow}>
           <div className={styles.petCategory}>
             <div className={styles.petCategoryImage}>
               <Image src={Dog} alt="dog-image" height={90} width={90} />
@@ -54,7 +54,7 @@ export default function Home() {
               <div className={styles.petCategoryName}>Vet Consulting</div>
             </div>
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className={styles.carouselContent}>
         <Carousel>
@@ -240,24 +240,24 @@ export default function Home() {
         <div className={styles.healhTipsRow}>
           <div className={styles.healhTipsRowImgae}></div>
           <div className={styles.healhTipsRowSubheading}>
-            <p>
+            <div>
               Pet Parenting 101: Stage-Wise Guide To Taking Care Of the Pet
               Mom-To-Be
-            </p>
+            </div>
           </div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>
         <div className={styles.healhTipsRow}>
           <div className={styles.healhTipsRowImgae}></div>
           <div className={styles.healhTipsRowSubheading}>
-            <p>How Do You Tell The Difference Between Ticks and Fleas?</p>
+            <div>How Do You Tell The Difference Between Ticks and Fleas?</div>
           </div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>
         <div className={styles.healhTipsRow}>
           <div className={styles.healhTipsRowImgae}></div>
           <div className={styles.healhTipsRowSubheading}>
-            <p>What To Expert From A Tick And Flea Treatment Package?</p>
+            <div>What To Expert From A Tick And Flea Treatment Package?</div>
           </div>
           <div className={styles.healhTipsRowReadNow}>READ NOW</div>
         </div>

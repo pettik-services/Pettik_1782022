@@ -53,6 +53,21 @@
 
                         color: #A3A3A3;
                     }
+                    input[type=date] {
+                        text-align: center;
+                        background: rgba(160, 68, 255, 0.01);
+                        border: 1px solid #000000;
+                        border-radius: 10px;
+                        width: 206px;
+                        height: 35px;
+                        font-family: 'IBM Plex Sans';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 21px;
+                        line-height: 27px;
+
+                        color: #A3A3A3;
+                    }
 
                     .addPetContentBoxCategoriesBoxGender {
                         display: flex;
